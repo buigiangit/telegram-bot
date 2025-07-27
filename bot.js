@@ -2,10 +2,10 @@ const TelegramBot = require('node-telegram-bot-api');
 const cron = require('node-cron');
 
 // Token và Group ID
-const token = '7679136937:AAEnrOWJ7G0ngrcUG8F-QRf8K1k0GYxiB9s';
+const token = process.env.BOT_TOKEN;
 const groupIdFBT = '-1002375447514';
 
-const tokenCDT = '7831387437:AAFVyNBDUXutd8Np_vVVBTMnAxdByFc-cs0';
+const tokenCDT = process.env.BOT_TOKEN_CDT;
 const groupIdCDT = '-1002286588708';
 
 // Tạo bot không dùng polling
