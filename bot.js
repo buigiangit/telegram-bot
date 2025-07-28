@@ -31,24 +31,19 @@ async function deleteAllBotMessages_CDT() {
 // Gửi tin CDT
 async function sendMessage_CDT() {
   const text = 
-    `<b>🚀 CHÀO MỪNG ĐẾN VỚI CỘNG ĐỒNG TRADER !</b>\n\n` +
-
-    `🎯 <b>Tham gia ngay Nhóm Private - "Tàu Chiến"</b> để nâng cấp tư duy & chiến lược đầu tư:\n\n` +
-
-    `🔹 <b> View thị trường mỗi ngày</b> — Giúp bạn luôn đi trước xu hướng!\n\n` +
-    `🔹 <b> Lệnh trade chất lượng</b> — Market / Limit kèm TP, SL rõ ràng, cập nhật liên tục.\n\n` +
-    `🔹 <b> Mentoring trực tiếp</b> — Tư duy giao dịch, kỹ năng phân tích kỹ thuật từ đội ngũ có kinh nghiệm thực chiến.\n\n` +
-
-    `🔥 <b>Chúng tôi không chỉ đưa lệnh — chúng tôi giúp bạn hiểu thị trường!</b>\n\n` +
-
-    `🔑 <b>Cách tham gia cực đơn giản:</b>\n\n` +
-    `🔹 <b>Bước 1:</b> Đăng ký tài khoản BingX tại <a href="https://bingx.com/invite/CongDongTrader">👉 LINK ĐĂNG KÝ</a>\n\n` +
-    `🔹 <b>Bước 2:</b> Nạp tối thiểu 50 USDT, sau đó gửi UID cho @huachu87 để được xác nhận vào nhóm.\n\n` +
-
-    `🎁 <i>Ưu tiên hỗ trợ & tặng kèm tài liệu chiến lược cho thành viên đăng ký qua link!</i>\n\n` +
-
-    `💬 <b>Đừng đi trade một mình — Hãy để chúng tôi đồng hành cùng bạn!</b>\n\n` +
-    `<b><i>— CDT Teams</i></b>`;
+`🚀 <b>CHÀO MỪNG ĐẾN VỚI CỘNG ĐỒNG TRADER!</b>\n\n` +
+`🎯 <b>Tham gia ngay Nhóm Private - “Tàu Chiến”</b> để cùng học hỏi & nâng cao tư duy giao dịch tài sản số:\n\n` +
+`🔹 <b>View thị trường mỗi ngày</b> — Giúp bạn cập nhật thông tin và phản ứng chủ động trước biến động giá.\n` +
+`🔹 <b>Chiến lược phân tích kỹ thuật</b> — Cung cấp các kịch bản giao dịch minh hoạ, có TP/SL tham khảo.\n` +
+`🔹 <b>Thảo luận chuyên sâu 1-1</b> — Cùng đội ngũ có kinh nghiệm thực chiến chia sẻ về phân tích kỹ thuật và quản lý rủi ro.\n\n` +
+`🔥 <b>Chúng tôi không đưa ra lời khuyên đầu tư</b> — Mọi chia sẻ mang tính giáo dục & phân tích để bạn tự đưa ra quyết định!\n\n` +
+`🔑 <b>Cách tham gia:</b>\n` +
+`🔸 Bước 1: Tạo tài khoản BingX tại <a href="https://bingx.com/invite/CongDongTrader">👉 LINK ĐĂNG KÝ</a>\n` +
+`🔸 Bước 2: Gửi UID cho admin để được xét duyệt vào nhóm.\n\n` +
+`🎁 <i>Ưu tiên hỗ trợ & tặng tài liệu hướng dẫn phân tích kỹ thuật cho thành viên đăng ký qua link!</i>\n\n` +
+`💬 <b>Đừng đi trade một mình — Hãy để chúng tôi đồng hành cùng bạn!</b>\n\n` +
+`⚠️ <i>Nhóm này không cung cấp dịch vụ đầu tư, không cam kết lợi nhuận và không đại diện cho bất kỳ tổ chức tài chính nào. Mọi nội dung chia sẻ chỉ mang tính chất tham khảo. Người tham gia tự chịu trách nhiệm với các quyết định của mình.</i>\n\n` +
+`<b><i>— CDT Teams</i></b>`;
 
   const message = await botCDT.sendMessage(groupIdCDT, text, {
     parse_mode: 'HTML',
@@ -74,24 +69,19 @@ async function deleteAllBotMessages() {
 // Gửi tin FBT
 async function sendMessage_FBT() {
   const text = 
-    `<b>🚀 CHÀO MỪNG ĐẾN VỚI FUTURE BOSS TRADING !</b>\n\n` +
-
-    `🎯 <b>Tham gia ngay Nhóm Private - "Chiến Hạm"</b> để nâng cấp tư duy & chiến lược đầu tư:\n\n` +
-
-    `🔹 <b> View thị trường mỗi ngày</b> — Giúp bạn luôn đi trước xu hướng!\n\n` +
-    `🔹 <b> Lệnh trade chất lượng</b> — Market / Limit kèm TP, SL rõ ràng, cập nhật liên tục.\n\n` +
-    `🔹 <b> Mentoring trực tiếp</b> — Tư duy giao dịch, kỹ năng phân tích kỹ thuật từ đội ngũ có kinh nghiệm thực chiến.\n\n` +
-
-    `🔥 <b>Chúng tôi không chỉ đưa lệnh — chúng tôi giúp bạn hiểu thị trường!</b>\n\n` +
-
-    `🔑 <b>Cách tham gia cực đơn giản:</b>\n\n` +
-    `🔹 <b>Bước 1:</b> Đăng ký tài khoản BingX tại <a href="https://bingx.com/invite/FutureBossTrading">👉 Link đăng ký</a>\n\n` +
-    `🔹 <b>Bước 2:</b> Nạp tối thiểu 100 USDT, sau đó gửi UID cho @quachgiaFBT để được xác nhận vào nhóm.\n\n` +
-
-    `🎁 <i>Ưu tiên hỗ trợ & tặng kèm tài liệu chiến lược cho thành viên đăng ký qua link!</i>\n\n` +
-
-    `💬 <b>Đừng đi trade một mình — Hãy để chúng tôi đồng hành cùng bạn!</b>\n\n` +
-    `<b><i>— FutureBossTrading</i></b>`;
+`🚀 <b>CHÀO MỪNG ĐẾN VỚI FUTURE BOSS TRADING!</b>\n\n` +
+`🎯 <b>Tham gia ngay Nhóm Private - “Tàu Chiến”</b> để cùng học hỏi & nâng cao tư duy giao dịch tài sản số:\n\n` +
+`🔹 <b>View thị trường mỗi ngày</b> — Giúp bạn cập nhật thông tin và phản ứng chủ động trước biến động giá.\n` +
+`🔹 <b>Chiến lược phân tích kỹ thuật</b> — Cung cấp các kịch bản giao dịch minh hoạ, có TP/SL tham khảo.\n` +
+`🔹 <b>Thảo luận chuyên sâu 1-1</b> — Cùng đội ngũ có kinh nghiệm thực chiến chia sẻ về phân tích kỹ thuật và quản lý rủi ro.\n\n` +
+`🔥 <b>Chúng tôi không đưa ra lời khuyên đầu tư</b> — Mọi chia sẻ mang tính giáo dục & phân tích để bạn tự đưa ra quyết định!\n\n` +
+`🔑 <b>Cách tham gia:</b>\n` +
+`🔸 Bước 1: Tạo tài khoản BingX tại <a href="https://bingx.com/invite/CongDongTrader">👉 LINK ĐĂNG KÝ</a>\n` +
+`🔸 Bước 2: Gửi UID cho admin để được xét duyệt vào nhóm.\n\n` +
+`🎁 <i>Ưu tiên hỗ trợ & tặng tài liệu hướng dẫn phân tích kỹ thuật cho thành viên đăng ký qua link!</i>\n\n` +
+`💬 <b>Đừng đi trade một mình — Hãy để chúng tôi đồng hành cùng bạn!</b>\n\n` +
+`⚠️ <i>Nhóm này không cung cấp dịch vụ đầu tư, không cam kết lợi nhuận và không đại diện cho bất kỳ tổ chức tài chính nào. Mọi nội dung chia sẻ chỉ mang tính chất tham khảo. Người tham gia tự chịu trách nhiệm với các quyết định của mình.</i>\n\n` +
+`<b><i>— FBT Teams</i></b>`;
 
   const message = await botFBT.sendMessage(groupIdFBT, text, {
     parse_mode: 'HTML',
@@ -102,7 +92,7 @@ async function sendMessage_FBT() {
 }
 
 // Lên lịch gửi tin nhắn mỗi giờ (ví dụ: '0 * * * *' = đầu mỗi giờ)
-cron.schedule('0 6,12,19,23 * * *', () => {
+cron.schedule('* * * * *', () => {
   deleteAllBotMessages_CDT();
   sendMessage_CDT();
   deleteAllBotMessages();
