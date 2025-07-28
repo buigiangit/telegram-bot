@@ -92,7 +92,7 @@ async function sendMessage_FBT() {
 }
 
 // Lên lịch gửi tin nhắn mỗi giờ (ví dụ: '0 * * * *' = đầu mỗi giờ)
-cron.schedule('* * * * *', () => {
+cron.schedule('0 6,12,15,20,24 * * *', () => {
   deleteAllBotMessages_CDT();
   sendMessage_CDT();
   deleteAllBotMessages();
