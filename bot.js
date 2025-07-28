@@ -33,8 +33,8 @@ async function sendMessage_CDT() {
   const text = 
 `🚀 <b>CHÀO MỪNG ĐẾN VỚI CỘNG ĐỒNG TRADER!</b>\n\n` +
 `🎯 <b>Tham gia ngay Nhóm Private - “Tàu Chiến”</b> để cùng học hỏi & nâng cao tư duy giao dịch tài sản số:\n\n` +
-`🔹 <b>View thị trường mỗi ngày</b> — Giúp bạn cập nhật thông tin và phản ứng chủ động trước biến động giá.\n` +
-`🔹 <b>Chiến lược phân tích kỹ thuật</b> — Cung cấp các kịch bản giao dịch minh hoạ, có TP/SL tham khảo.\n` +
+`🔹 <b>View thị trường mỗi ngày</b> — Giúp bạn cập nhật thông tin và phản ứng chủ động trước biến động giá.\n\n` +
+`🔹 <b>Chiến lược phân tích kỹ thuật</b> — Cung cấp các kịch bản giao dịch minh hoạ, có TP/SL tham khảo.\n\n` +
 `🔹 <b>Thảo luận chuyên sâu 1-1</b> — Cùng đội ngũ có kinh nghiệm thực chiến chia sẻ về phân tích kỹ thuật và quản lý rủi ro.\n\n` +
 `🔥 <b>Chúng tôi không đưa ra lời khuyên đầu tư</b> — Mọi chia sẻ mang tính giáo dục & phân tích để bạn tự đưa ra quyết định!\n\n` +
 `🔑 <b>Cách tham gia:</b>\n` +
@@ -71,8 +71,8 @@ async function sendMessage_FBT() {
   const text = 
 `🚀 <b>CHÀO MỪNG ĐẾN VỚI FUTURE BOSS TRADING!</b>\n\n` +
 `🎯 <b>Tham gia ngay Nhóm Private - “Chiến Hạm”</b> để cùng học hỏi & nâng cao tư duy giao dịch tài sản số:\n\n` +
-`🔹 <b>View thị trường mỗi ngày</b> — Giúp bạn cập nhật thông tin và phản ứng chủ động trước biến động giá.\n` +
-`🔹 <b>Chiến lược phân tích kỹ thuật</b> — Cung cấp các kịch bản giao dịch minh hoạ, có TP/SL tham khảo.\n` +
+`🔹 <b>View thị trường mỗi ngày</b> — Giúp bạn cập nhật thông tin và phản ứng chủ động trước biến động giá.\n\n` +
+`🔹 <b>Chiến lược phân tích kỹ thuật</b> — Cung cấp các kịch bản giao dịch minh hoạ, có TP/SL tham khảo.\n\n` +
 `🔹 <b>Thảo luận chuyên sâu 1-1</b> — Cùng đội ngũ có kinh nghiệm thực chiến chia sẻ về phân tích kỹ thuật và quản lý rủi ro.\n\n` +
 `🔥 <b>Chúng tôi không đưa ra lời khuyên đầu tư</b> — Mọi chia sẻ mang tính giáo dục & phân tích để bạn tự đưa ra quyết định!\n\n` +
 `🔑 <b>Cách tham gia:</b>\n` +
