@@ -76,7 +76,7 @@ async function sendMessage_FBT() {
 `🔹 <b>Thảo luận chuyên sâu 1-1</b> — Cùng đội ngũ có kinh nghiệm thực chiến chia sẻ về phân tích kỹ thuật và quản lý rủi ro.\n\n` +
 `🔥 <b>Chúng tôi không đưa ra lời khuyên đầu tư</b> — Mọi chia sẻ mang tính giáo dục & phân tích để bạn tự đưa ra quyết định!\n\n` +
 `🔑 <b>Cách tham gia:</b>\n` +
-`🔸 Bước 1: Tạo tài khoản BingX tại <a href="https://bingx.com/invite/CongDongTrader">👉 LINK ĐĂNG KÝ</a>\n` +
+`🔸 Bước 1: Tạo tài khoản BingX tại <a href="https://bingx.com/invite/FutureBossTrading">👉 LINK ĐĂNG KÝ</a>\n` +
 `🔸 Bước 2: Gửi UID cho admin để được xét duyệt vào nhóm.\n\n` +
 `🎁 <i>Ưu tiên hỗ trợ & tặng tài liệu hướng dẫn phân tích kỹ thuật cho thành viên đăng ký qua link!</i>\n\n` +
 `💬 <b>Đừng đi trade một mình — Hãy để chúng tôi đồng hành cùng bạn!</b>\n\n` +
