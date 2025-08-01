@@ -6,7 +6,7 @@ const token = process.env.BOT_TOKEN;
 const groupIdFBT = '-1002375447514';
 
 const tokenCDT = process.env.BOT_TOKEN_CDT;
-const groupIdCDT = '-1002286588708';
+const groupIdCDT = '@FutureBossTrading'; //'-1002286588708';
 
 // Tạo bot không dùng polling
 const botFBT = new TelegramBot(token);
@@ -88,11 +88,10 @@ async function sendMessage_FBT() {
     disable_web_page_preview: true
   });
 
-  sentMessageIds_CDT.push(message.message_id);
 }
 
 // Lên lịch gửi tin nhắn mỗi giờ (ví dụ: '0 * * * *' = đầu mỗi giờ)
-cron.schedule('0 0,6,12,15,20 * * *', () => {
+cron.schedule('* * * * *', () => {
   deleteAllBotMessages_CDT();
   sendMessage_CDT();
   deleteAllBotMessages();
