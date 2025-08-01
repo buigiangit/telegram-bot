@@ -91,11 +91,11 @@ async function sendMessage_FBT() {
 }
 
 // Lên lịch gửi tin nhắn mỗi giờ (ví dụ: '0 * * * *' = đầu mỗi giờ)
-cron.schedule('* * * * *', () => {
+cron.schedule('0 0,6,14,22 * * *', () => {
   deleteAllBotMessages_CDT();
   sendMessage_CDT();
-  deleteAllBotMessages();
-  sendMessage_FBT();
+  //deleteAllBotMessages();
+  //sendMessage_FBT();
   console.log('Tin nhắn đã được gửi vào các nhóm!');
 });
 
