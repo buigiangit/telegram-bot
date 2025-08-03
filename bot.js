@@ -6,7 +6,7 @@ const token = process.env.BOT_TOKEN;
 const groupIdFBT = '-1002375447514';
 
 const tokenCDT = process.env.BOT_TOKEN_CDT;
-const groupIdCDT = '@FutureBossTrading'; //'-1002286588708';
+const groupIdCDT = '-1002286588708';
 
 // Tạo bot không dùng polling
 const botFBT = new TelegramBot(token);
