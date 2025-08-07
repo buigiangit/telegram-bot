@@ -3,7 +3,7 @@ const cron = require('node-cron');
 
 // Token và Group ID
 const token = process.env.BOT_TOKEN;
-const groupIdFBT = '-1002375447514';
+const groupIdFBT = '-1002704170385';
 
 const tokenCDT = process.env.BOT_TOKEN_CDT;
 const groupIdCDT = '-1002286588708';
@@ -94,8 +94,8 @@ async function sendMessage_FBT() {
 cron.schedule('0 * * * *', () => {
   deleteAllBotMessages_CDT();
   sendMessage_CDT();
-  //deleteAllBotMessages();
-  //sendMessage_FBT();
+  deleteAllBotMessages();
+  sendMessage_FBT();
   console.log('Tin nhắn đã được gửi vào các nhóm!');
 });
 
