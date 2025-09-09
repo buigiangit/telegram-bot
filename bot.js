@@ -39,7 +39,7 @@ async function sendMessage_CDT() {
 `🔥 <b>Chúng tôi không đưa ra lời khuyên đầu tư</b> — Mọi chia sẻ mang tính giáo dục & phân tích để bạn tự đưa ra quyết định!\n\n` +
 `🔑 <b>Cách tham gia:</b>\n` +
 `🔸 Bước 1: Tạo tài khoản BingX tại <a href="https://bingx.com/invite/CongDongTrader">👉 LINK ĐĂNG KÝ</a>\n` +
-`🔸 Bước 2: Gửi UID cho admin để được xét duyệt vào nhóm.\n\n` +
+`🔸 Bước 2: Gửi UID cho @huachu87 để được xét duyệt vào nhóm.\n\n` +
 `🎁 <i>Ưu tiên hỗ trợ & tặng tài liệu hướng dẫn phân tích kỹ thuật cho thành viên đăng ký qua link!</i>\n\n` +
 `💬 <b>Đừng đi trade một mình — Hãy để chúng tôi đồng hành cùng bạn!</b>\n\n` +
 `⚠️ <i>Nhóm này không cung cấp dịch vụ đầu tư, không cam kết lợi nhuận và không đại diện cho bất kỳ tổ chức tài chính nào. Mọi nội dung chia sẻ chỉ mang tính chất tham khảo. Người tham gia tự chịu trách nhiệm với các quyết định của mình.</i>\n\n` +
@@ -77,7 +77,7 @@ async function sendMessage_FBT() {
 `🔥 <b>Chúng tôi không đưa ra lời khuyên đầu tư</b> — Mọi chia sẻ mang tính giáo dục & phân tích để bạn tự đưa ra quyết định!\n\n` +
 `🔑 <b>Cách tham gia:</b>\n` +
 `🔸 Bước 1: Tạo tài khoản BingX tại <a href="https://bingx.com/invite/FutureBossTrading">👉 LINK ĐĂNG KÝ</a>\n` +
-`🔸 Bước 2: Gửi UID cho admin để được xét duyệt vào nhóm.\n\n` +
+`🔸 Bước 2: Gửi UID cho @quachgiaFBT để được xét duyệt vào nhóm.\n\n` +
 `🎁 <i>Ưu tiên hỗ trợ & tặng tài liệu hướng dẫn phân tích kỹ thuật cho thành viên đăng ký qua link!</i>\n\n` +
 `💬 <b>Đừng đi trade một mình — Hãy để chúng tôi đồng hành cùng bạn!</b>\n\n` +
 `⚠️ <i>Nhóm này không cung cấp dịch vụ đầu tư, không cam kết lợi nhuận và không đại diện cho bất kỳ tổ chức tài chính nào. Mọi nội dung chia sẻ chỉ mang tính chất tham khảo. Người tham gia tự chịu trách nhiệm với các quyết định của mình.</i>\n\n` +
