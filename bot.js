@@ -120,7 +120,7 @@ cron.schedule(
       await sendMessage_CDT();
 
       // await deleteAllBotMessages_FBT();
-      await sendMessage_FBT();
+     // await sendMessage_FBT();
 
       console.log('Tin nhắn đã được gửi vào các nhóm!');
     } catch (err) {
