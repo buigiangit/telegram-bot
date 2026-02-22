@@ -46,7 +46,7 @@ async function sendMessage_CDT() {
 `🔹 <b>View thị trường mỗi ngày</b> — Giúp bạn cập nhật thông tin và phản ứng chủ động trước biến động giá.\n\n` +
 `🔹 <b>Chiến lược phân tích kỹ thuật</b> — Cung cấp các kịch bản giao dịch minh hoạ, có TP/SL tham khảo.\n\n` +
 `🔹 <b>Thảo luận chuyên sâu 1-1</b> — Cùng đội ngũ có kinh nghiệm thực chiến chia sẻ về phân tích kỹ thuật và quản lý rủi ro.\n\n` +
-`🔹 <b>Miễn phí sử dụng chỉ báo CDT Smart Signal Bot</b> trên Telegram — Hỗ trợ tín hiệu tham khảo, tối ưu điểm vào lệnh.\n\n` +
+`🔹 <b>Miễn phí sử dụng chỉ báo CDT Smart Signal Bot</b> trên Trading View — Hỗ trợ tín hiệu tham khảo, tối ưu điểm vào lệnh.\n\n` +
 `🔹 <b>Tham gia Group Bot Call Lệnh miễn phí</b> — Cập nhật kịch bản giao dịch nhanh chóng theo từng phiên.\n\n` +
 `🔥 <b>Chúng tôi không đưa ra lời khuyên đầu tư</b> — Mọi chia sẻ mang tính giáo dục & phân tích để bạn tự đưa ra quyết định!\n\n` +
 `🔑 <b>Cách tham gia:</b>\n` +
