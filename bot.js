@@ -3,11 +3,15 @@ const cron = require('node-cron');
 const express = require('express');
 
 // ===== ENV on Render =====
-const tokenFBT = process.env.BOT_TOKEN_FBT;      // đổi tên cho rõ
+const tokenFBT = process.env.BOT_TOKEN_FBT;
 const tokenCDT = process.env.BOT_TOKEN_CDT;
 
 const groupIdFBT = process.env.GROUP_ID_FBT || '-1002704170385';
 const groupIdCDT = process.env.GROUP_ID_CDT || '-1002286588708';
+
+// ===== Cron ENV =====
+const cronSchedule = process.env.CRON_SCHEDULE || '0 */4 * * *'; // mặc định 4 tiếng/lần
+const cronTimezone = process.env.CRON_TIMEZONE || 'Asia/Ho_Chi_Minh'; // giờ VN
 
 if (!tokenFBT || !tokenCDT) {
   console.error('Missing BOT_TOKEN_FBT or BOT_TOKEN_CDT in env');
@@ -53,12 +57,16 @@ async function sendMessage_CDT() {
 `⚠️ <i>Nhóm này không cung cấp dịch vụ đầu tư, không cam kết lợi nhuận và không đại diện cho bất kỳ tổ chức tài chính nào. Mọi nội dung chia sẻ chỉ mang tính chất tham khảo. Người tham gia tự chịu trách nhiệm với các quyết định của mình.</i>\n\n` +
 `<b><i>— CDT Teams</i></b>`;
 
-  const message = await botCDT.sendMessage(groupIdCDT, text, {
-    parse_mode: 'HTML',
-    disable_web_page_preview: true
-  });
-
-  sentMessageIds_CDT.push(message.message_id);
+  try {
+    const message = await botCDT.sendMessage(groupIdCDT, text, {
+      parse_mode: 'HTML',
+      disable_web_page_preview: true
+    });
+    sentMessageIds_CDT.push(message.message_id);
+    console.log(`Đã gửi CDT message_id=${message.message_id}`);
+  } catch (err) {
+    console.error('Lỗi gửi tin CDT:', err.message || err);
+  }
 }
 
 // Xóa tin nhắn FBT
@@ -91,33 +99,43 @@ async function sendMessage_FBT() {
 `⚠️ <i>Nhóm này không cung cấp dịch vụ đầu tư, không cam kết lợi nhuận và không đại diện cho bất kỳ tổ chức tài chính nào. Mọi nội dung chia sẻ chỉ mang tính chất tham khảo. Người tham gia tự chịu trách nhiệm với các quyết định của mình.</i>\n\n` +
 `<b><i>— FBT Teams</i></b>`;
 
-  const message = await botFBT.sendMessage(groupIdFBT, text, {
-    parse_mode: 'HTML',
-    disable_web_page_preview: true
-  });
-
-  sentMessageIds_FBT.push(message.message_id);
+  try {
+    const message = await botFBT.sendMessage(groupIdFBT, text, {
+      parse_mode: 'HTML',
+      disable_web_page_preview: true
+    });
+    sentMessageIds_FBT.push(message.message_id);
+    console.log(`Đã gửi FBT message_id=${message.message_id}`);
+  } catch (err) {
+    console.error('Lỗi gửi tin FBT:', err.message || err);
+  }
 }
 
-// Cron mỗi 4 giờ
-cron.schedule('0 */4 * * *', async () => {
-  try {
-    // await deleteAllBotMessages_CDT();
-    await sendMessage_CDT();
+// Cron theo ENV
+cron.schedule(
+  cronSchedule,
+  async () => {
+    try {
+      // await deleteAllBotMessages_CDT();
+      await sendMessage_CDT();
 
-    // await deleteAllBotMessages_FBT();
-    await sendMessage_FBT();
+      // await deleteAllBotMessages_FBT();
+      await sendMessage_FBT();
 
-    console.log('Tin nhắn đã được gửi vào các nhóm!');
-  } catch (err) {
-    console.error('Cron error:', err.message || err);
-  }
-});
+      console.log('Tin nhắn đã được gửi vào các nhóm!');
+    } catch (err) {
+      console.error('Cron error:', err.message || err);
+    }
+  },
+  { timezone: cronTimezone }
+);
+
+console.log('Bot đang chạy...');
+console.log('Cron schedule:', cronSchedule);
+console.log('Cron timezone:', cronTimezone);
 
 // ===== Keep-alive HTTP server for Render =====
 const app = express();
 app.get('/', (req, res) => res.send('Bot is running'));
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server listening on ${port}`));
-
-console.log('Bot đang chạy...');
