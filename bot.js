@@ -1,19 +1,25 @@
 const TelegramBot = require('node-telegram-bot-api');
 const cron = require('node-cron');
+const express = require('express');
 
-// Token và Group ID
-const token = process.env.BOT_TOKEN;
-const groupIdFBT = '-1002704170385';
-
+// ===== ENV on Render =====
+const tokenFBT = process.env.BOT_TOKEN_FBT;      // đổi tên cho rõ
 const tokenCDT = process.env.BOT_TOKEN_CDT;
-const groupIdCDT = '-1002286588708';
 
-// Tạo bot không dùng polling
-const botFBT = new TelegramBot(token);
+const groupIdFBT = process.env.GROUP_ID_FBT || '-1002704170385';
+const groupIdCDT = process.env.GROUP_ID_CDT || '-1002286588708';
+
+if (!tokenFBT || !tokenCDT) {
+  console.error('Missing BOT_TOKEN_FBT or BOT_TOKEN_CDT in env');
+  process.exit(1);
+}
+
+// Tạo bot (không polling)
+const botFBT = new TelegramBot(tokenFBT);
 const botCDT = new TelegramBot(tokenCDT);
 
 let sentMessageIds_CDT = [];
-let sentMessageIds = [];
+let sentMessageIds_FBT = [];
 
 // Xóa tin nhắn CDT
 async function deleteAllBotMessages_CDT() {
@@ -24,22 +30,24 @@ async function deleteAllBotMessages_CDT() {
     }
     sentMessageIds_CDT = [];
   } catch (err) {
-    console.error('Lỗi xóa tin CDT:', err);
+    console.error('Lỗi xóa tin CDT:', err.message || err);
   }
 }
 
 // Gửi tin CDT
 async function sendMessage_CDT() {
-  const text = 
+  const text =
 `🚀 <b>CHÀO MỪNG ĐẾN VỚI CỘNG ĐỒNG TRADER!</b>\n\n` +
 `🎯 <b>Tham gia ngay Nhóm Private - “Tàu Chiến”</b> để cùng học hỏi & nâng cao tư duy giao dịch tài sản số:\n\n` +
 `🔹 <b>View thị trường mỗi ngày</b> — Giúp bạn cập nhật thông tin và phản ứng chủ động trước biến động giá.\n\n` +
 `🔹 <b>Chiến lược phân tích kỹ thuật</b> — Cung cấp các kịch bản giao dịch minh hoạ, có TP/SL tham khảo.\n\n` +
 `🔹 <b>Thảo luận chuyên sâu 1-1</b> — Cùng đội ngũ có kinh nghiệm thực chiến chia sẻ về phân tích kỹ thuật và quản lý rủi ro.\n\n` +
+`🔹 <b>Miễn phí sử dụng chỉ báo CDT Smart Signal Bot</b> trên Telegram — Hỗ trợ tín hiệu tham khảo, tối ưu điểm vào lệnh.\n\n` +
+`🔹 <b>Tham gia Group Bot Call Lệnh miễn phí</b> — Cập nhật kịch bản giao dịch nhanh chóng theo từng phiên.\n\n` +
 `🔥 <b>Chúng tôi không đưa ra lời khuyên đầu tư</b> — Mọi chia sẻ mang tính giáo dục & phân tích để bạn tự đưa ra quyết định!\n\n` +
 `🔑 <b>Cách tham gia:</b>\n` +
-`🔸 Bước 1: Tạo tài khoản BingX tại <a href="https://bingx.com/invite/CongDongTrader">👉 LINK ĐĂNG KÝ</a>\n` +
-`🔸 Bước 2: Gửi UID cho @huachu87 để được xét duyệt vào nhóm.\n\n` +
+`🔸 Bước 1: Tạo tài khoản BingX tại <a href="https://bingx.com/invite/GRKAS2">👉 LINK ĐĂNG KÝ</a>\n` +
+`🔸 Bước 2: Gửi UID cho admin để được xét duyệt vào nhóm.\n\n` +
 `🎁 <i>Ưu tiên hỗ trợ & tặng tài liệu hướng dẫn phân tích kỹ thuật cho thành viên đăng ký qua link!</i>\n\n` +
 `💬 <b>Đừng đi trade một mình — Hãy để chúng tôi đồng hành cùng bạn!</b>\n\n` +
 `⚠️ <i>Nhóm này không cung cấp dịch vụ đầu tư, không cam kết lợi nhuận và không đại diện cho bất kỳ tổ chức tài chính nào. Mọi nội dung chia sẻ chỉ mang tính chất tham khảo. Người tham gia tự chịu trách nhiệm với các quyết định của mình.</i>\n\n` +
@@ -54,21 +62,21 @@ async function sendMessage_CDT() {
 }
 
 // Xóa tin nhắn FBT
-async function deleteAllBotMessages() {
+async function deleteAllBotMessages_FBT() {
   try {
-    for (const messageId of sentMessageIds) {
-      await bot.deleteMessage(groupIdFBT, messageId);
+    for (const messageId of sentMessageIds_FBT) {
+      await botFBT.deleteMessage(groupIdFBT, messageId);
       console.log(`Đã xóa tin nhắn FBT ID: ${messageId}`);
     }
-    sentMessageIds = [];
+    sentMessageIds_FBT = [];
   } catch (err) {
-    console.error('Lỗi xóa tin FBT:', err);
+    console.error('Lỗi xóa tin FBT:', err.message || err);
   }
 }
 
 // Gửi tin FBT
 async function sendMessage_FBT() {
-  const text = 
+  const text =
 `🚀 <b>CHÀO MỪNG ĐẾN VỚI FUTURE BOSS TRADING!</b>\n\n` +
 `🎯 <b>Tham gia ngay Nhóm Private - “Chiến Hạm”</b> để cùng học hỏi & nâng cao tư duy giao dịch tài sản số:\n\n` +
 `🔹 <b>View thị trường mỗi ngày</b> — Giúp bạn cập nhật thông tin và phản ứng chủ động trước biến động giá.\n\n` +
@@ -77,7 +85,7 @@ async function sendMessage_FBT() {
 `🔥 <b>Chúng tôi không đưa ra lời khuyên đầu tư</b> — Mọi chia sẻ mang tính giáo dục & phân tích để bạn tự đưa ra quyết định!\n\n` +
 `🔑 <b>Cách tham gia:</b>\n` +
 `🔸 Bước 1: Tạo tài khoản BingX tại <a href="https://bingx.com/invite/FutureBossTrading">👉 LINK ĐĂNG KÝ</a>\n` +
-`🔸 Bước 2: Gửi UID cho @quachgiaFBT để được xét duyệt vào nhóm.\n\n` +
+`🔸 Bước 2: Gửi UID cho admin để được xét duyệt vào nhóm.\n\n` +
 `🎁 <i>Ưu tiên hỗ trợ & tặng tài liệu hướng dẫn phân tích kỹ thuật cho thành viên đăng ký qua link!</i>\n\n` +
 `💬 <b>Đừng đi trade một mình — Hãy để chúng tôi đồng hành cùng bạn!</b>\n\n` +
 `⚠️ <i>Nhóm này không cung cấp dịch vụ đầu tư, không cam kết lợi nhuận và không đại diện cho bất kỳ tổ chức tài chính nào. Mọi nội dung chia sẻ chỉ mang tính chất tham khảo. Người tham gia tự chịu trách nhiệm với các quyết định của mình.</i>\n\n` +
@@ -88,15 +96,28 @@ async function sendMessage_FBT() {
     disable_web_page_preview: true
   });
 
+  sentMessageIds_FBT.push(message.message_id);
 }
 
-// Lên lịch gửi tin nhắn mỗi giờ (ví dụ: '0 * * * *' = đầu mỗi giờ)
-cron.schedule('0 */4 * * *', () => {
-  //deleteAllBotMessages_CDT();
-  sendMessage_CDT();
-  //deleteAllBotMessages();
-  sendMessage_FBT();
-  console.log('Tin nhắn đã được gửi vào các nhóm!');
+// Cron mỗi 4 giờ
+cron.schedule('0 */4 * * *', async () => {
+  try {
+    // await deleteAllBotMessages_CDT();
+    await sendMessage_CDT();
+
+    // await deleteAllBotMessages_FBT();
+    await sendMessage_FBT();
+
+    console.log('Tin nhắn đã được gửi vào các nhóm!');
+  } catch (err) {
+    console.error('Cron error:', err.message || err);
+  }
 });
+
+// ===== Keep-alive HTTP server for Render =====
+const app = express();
+app.get('/', (req, res) => res.send('Bot is running'));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server listening on ${port}`));
 
 console.log('Bot đang chạy...');
