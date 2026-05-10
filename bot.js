@@ -16,8 +16,8 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const PORT = process.env.PORT || 3001;
 const AI_MODEL = process.env.AI_MODEL || "gpt-4.1-mini";
 const MEMORY_ENABLED = process.env.MEMORY_ENABLED === "true";
-const CDT_GROUP_IDS = process.env.CDT_GROUP_IDS || "";
-const FBT_GROUP_IDS = process.env.FBT_GROUP_IDS || "";
+const GROUP_STYLE = process.env.GROUP_STYLE || "FBT";
+const BOT_NAME = process.env.BOT_NAME || "bot";
 
 if (!BOT_TOKEN) throw new Error("Missing BOT_TOKEN");
 if (!OPENAI_API_KEY) throw new Error("Missing OPENAI_API_KEY");
@@ -297,65 +297,41 @@ function normalizeStyle(style) {
   return "FBT";
 }
 
-function parseIdList(value) {
-  return String(value || "")
-    .split(",")
-    .map((x) => x.trim())
-    .filter(Boolean);
+function getEnvGroupStyle() {
+  return normalizeStyle(GROUP_STYLE);
 }
 
-function getEnvGroupStyle(chatId) {
-  const id = String(chatId || "");
-  const cdtIds = parseIdList(CDT_GROUP_IDS);
-  const fbtIds = parseIdList(FBT_GROUP_IDS);
+function getBotCallNames() {
+  const baseNames = String(BOT_NAME || "bot")
+    .split(",")
+    .map((x) => x.trim().toLowerCase())
+    .filter(Boolean);
 
-  if (cdtIds.includes(id)) return "CDT";
-  if (fbtIds.includes(id)) return "FBT";
+  const style = normalizeStyle(GROUP_STYLE);
 
-  return null;
+  const defaultNames = style === "CDT"
+    ? ["thư ký", "thu ky", "thuky", "thư kí", "thu ki", "bot"]
+    : ["bot"];
+
+  return Array.from(new Set([...baseNames, ...defaultNames]));
+}
+
+function isBotMentioned(text) {
+  const lower = String(text || "").toLowerCase();
+  return getBotCallNames().some((name) => lower.includes(name));
 }
 
 async function getGroupConfig(ctx) {
   const chatId = String(ctx.chat?.id || "");
   const groupTitle = ctx.chat?.title || ctx.chat?.username || "Private Chat";
-  const envStyle = getEnvGroupStyle(chatId);
-  const defaultStyle = envStyle || "FBT";
+  const serviceStyle = getEnvGroupStyle();
 
   if (!chatId) {
-    return { chat_id: "", group_title: groupTitle, style: defaultStyle };
+    return { chat_id: "", group_title: groupTitle, style: serviceStyle };
   }
 
   if (!db || !MEMORY_ENABLED) {
-    return { chat_id: chatId, group_title: groupTitle, style: defaultStyle };
-  }
-
-  if (envStyle) {
-    await db.query(
-      `
-      INSERT INTO group_config (chat_id, group_title, style, updated_at)
-      VALUES ($1, $2, $3, NOW())
-      ON CONFLICT (chat_id)
-      DO UPDATE SET
-        group_title = EXCLUDED.group_title,
-        style = EXCLUDED.style,
-        updated_at = NOW()
-      `,
-      [chatId, groupTitle, envStyle]
-    );
-
-    return { chat_id: chatId, group_title: groupTitle, style: envStyle };
-  }
-
-  const res = await db.query(
-    `SELECT * FROM group_config WHERE chat_id = $1 LIMIT 1`,
-    [chatId]
-  );
-
-  if (res.rows[0]) {
-    return {
-      ...res.rows[0],
-      style: normalizeStyle(res.rows[0].style),
-    };
+    return { chat_id: chatId, group_title: groupTitle, style: serviceStyle };
   }
 
   await db.query(
@@ -363,12 +339,15 @@ async function getGroupConfig(ctx) {
     INSERT INTO group_config (chat_id, group_title, style, updated_at)
     VALUES ($1, $2, $3, NOW())
     ON CONFLICT (chat_id)
-    DO NOTHING
+    DO UPDATE SET
+      group_title = EXCLUDED.group_title,
+      style = EXCLUDED.style,
+      updated_at = NOW()
     `,
-    [chatId, groupTitle, defaultStyle]
+    [chatId, groupTitle, serviceStyle]
   );
 
-  return { chat_id: chatId, group_title: groupTitle, style: defaultStyle };
+  return { chat_id: chatId, group_title: groupTitle, style: serviceStyle };
 }
 
 async function setGroupStyle(ctx, style) {
@@ -1437,17 +1416,11 @@ bot.command("forgetme", async (ctx) => {
 bot.command("set_style", async (ctx) => {
   if (!isAdmin(ctx)) return ctx.reply("Bạn không có quyền dùng lệnh này.");
 
-  const text = ctx.message?.text || "";
-  const style = text.split(" ")[1];
-
-  if (!style || !["FBT", "CDT"].includes(style.toUpperCase())) {
-    return ctx.reply("Dùng: /set_style FBT hoặc /set_style CDT");
-  }
-
-  const ok = await setGroupStyle(ctx, style);
-  if (!ok) return ctx.reply("Chưa bật database/memory nên chưa lưu style group được.");
-
-  await ctx.reply(`Đã đổi phong thái group sang ${style.toUpperCase()} ✅`);
+  await ctx.reply(
+    `Bot này đang dùng GROUP_STYLE=${normalizeStyle(GROUP_STYLE)} từ Render.
+` +
+      `Muốn đổi style thì sửa biến GROUP_STYLE trong Render rồi redeploy nhé.`
+  );
 });
 
 bot.command("group_status", async (ctx) => {
@@ -1457,6 +1430,8 @@ bot.command("group_status", async (ctx) => {
 ` +
       `Style: ${normalizeStyle(config.style)}
 ` +
+      `Bot name: ${BOT_NAME}
+` +
       `Chat ID: ${ctx.chat?.id}`
   );
 });
@@ -1465,10 +1440,18 @@ bot.command("status", async (ctx) => {
   await ctx.reply(
     `Bot status: ${BOT_ENABLED ? "ON ✅" : "OFF ⛔"}\n` +
       `AI chat ngoài market: ${AI_CHAT_ENABLED ? "ON ✅" : "OFF ⛔"}\n` +
-      `Memory: ${MEMORY_ENABLED && db ? "ON ✅" : "OFF ⛔"}\n` +
-      `Cooldown: ${USER_COOLDOWN_MS / 1000}s/user\n` +
-      `Model: ${AI_MODEL}\n` +
-      `EMA: 34/89/200/610\n` +
+      `Memory: ${MEMORY_ENABLED && db ? "ON ✅" : "OFF ⛔"}
+` +
+      `Style: ${normalizeStyle(GROUP_STYLE)}
+` +
+      `Bot name: ${BOT_NAME}
+` +
+      `Cooldown: ${USER_COOLDOWN_MS / 1000}s/user
+` +
+      `Model: ${AI_MODEL}
+` +
+      `EMA: 34/89/200/610
+` +
       `Signal Engine: ON ✅`
   );
 });
@@ -1483,21 +1466,9 @@ bot.on("text", async (ctx) => {
     if (text.startsWith("/")) return;
     if (!BOT_ENABLED) return;
 
-    const lower = text.toLowerCase();
+    if (!isBotMentioned(text)) return;
 
     const groupConfig = await getGroupConfig(ctx);
-    const groupStyle = normalizeStyle(groupConfig.style);
-
-    const isBotCalled = lower.includes("bot");
-    const isSecretaryCalled =
-      groupStyle === "CDT" &&
-      (lower.includes("thư ký") ||
-        lower.includes("thu ky") ||
-        lower.includes("thuky") ||
-        lower.includes("thư kí") ||
-        lower.includes("thu ki"));
-
-    if (!isBotCalled && !isSecretaryCalled) return;
 
     const userId = String(ctx.from?.id || "unknown");
     const now = Date.now();
@@ -1556,6 +1527,8 @@ app.get("/health", (_req, res) => {
     bot: BOT_ENABLED ? "ON" : "OFF",
     ai_chat: AI_CHAT_ENABLED ? "ON" : "OFF",
     memory: MEMORY_ENABLED && db ? "ON" : "OFF",
+    style: normalizeStyle(GROUP_STYLE),
+    bot_name: BOT_NAME,
     ema: "34/89/200/610",
     signal_engine: "ON",
   });
